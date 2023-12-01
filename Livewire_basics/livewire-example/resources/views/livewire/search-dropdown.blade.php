@@ -13,32 +13,10 @@
                    id="search"
                    class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out"
                    placeholder="Search for songs..." type="search" autocomplete="off">
-            <ul
-                class="absolute z-50 bg-white border border-gray-300 w-full rounded-md mt-2 text-gray-700 text-sm divide-y divide-gray-200">
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center px-4 py-4 hover:bg-gray-200 transition ease-in-out duration-150">
-                            <img src=""
-                                 alt="album art" class="w-10">
-                            <div class="ml-4 leading-tight">
-                                <div class="font-semibold">
-                                    Untitled
-                                </div>
-                                <div class="text-gray-600">
-                                    No Artist
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="px-4 py-4">No results found for "{{ $search }}"</li>
-
-            </ul>
-            {{--
-            @if (strlen($search) > 2)
+            @if(strlen($search) > 3)
                 <ul
                     class="absolute z-50 bg-white border border-gray-300 w-full rounded-md mt-2 text-gray-700 text-sm divide-y divide-gray-200">
-                    @forelse ($searchResults as $result)
+                    @forelse($searchResults as $result)
                         <li>
                             <a
                                 @if (array_key_exists('trackViewUrl', $result))
@@ -46,23 +24,16 @@
                                 @else
                                     href="#"
                                 @endif
+                                target="_blank"
                                 class="flex items-center px-4 py-4 hover:bg-gray-200 transition ease-in-out duration-150">
                                 <img src="{{ $result['artworkUrl60'] }}"
                                      alt="album art" class="w-10">
                                 <div class="ml-4 leading-tight">
                                     <div class="font-semibold">
-                                        @if (array_key_exists('trackName', $result))
-                                            {{ $result['trackName'] }}
-                                        @else
-                                            Untitled
-                                        @endif
+                                        {{ $result['trackName'] }}
                                     </div>
                                     <div class="text-gray-600">
-                                        @if (array_key_exists('artistName', $result))
-                                            {{ $result['artistName'] }}
-                                        @else
-                                            No Artist
-                                        @endif
+                                        {{ $result['artistName'] }}
                                     </div>
                                 </div>
                             </a>
@@ -70,11 +41,8 @@
                     @empty
                         <li class="px-4 py-4">No results found for "{{ $search }}"</li>
                     @endforelse
-
-
                 </ul>
             @endif
-            --}}
         </div>
     </div>
 </div>
