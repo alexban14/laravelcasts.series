@@ -97,6 +97,7 @@
 
     <livewire:data-tables />
 </div>
+
 <hr>
 
 <div class="my-8">
@@ -104,8 +105,20 @@
 
     <ul class="list-disc mt-4">
         @foreach ($posts as $post)
-            <li><a href="{{ route('post.show', $post) }}" class="text-blue-600">{{ $post->title }}</a></li>
+            <li>
+                <a href="{{ route('post.show', $post) }}" class="text-blue-600">{{ $post->title }}</a>
+                <a href="{{ route('post.edit', $post) }}" class="text-blue-600"> (Edit)</a>
+            </li>
         @endforeach
     </ul>
 </div>
+
+<hr>
+
+<div class="my-8">
+    <h2 class="text-lg font-semibold mt-4">Pooling example</h2>
+
+    <livewire:polling-example />
+</div>
+
 @endsection
