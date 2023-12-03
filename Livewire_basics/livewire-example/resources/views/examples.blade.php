@@ -118,7 +118,15 @@
 <div class="my-8">
     <h2 class="text-lg font-semibold mt-4">Pooling example</h2>
 
-    <livewire:polling-example />
+    {{-- <livewire:polling-example /> --}}
+</div>
+
+<div class="my-8">
+    <h2 class="text-lg font-semibold mt-4">Events with tags</h2>
+
+    <livewire:tags-component />
+
+    <div class="h-96"></div>
 </div>
 
 @endsection
