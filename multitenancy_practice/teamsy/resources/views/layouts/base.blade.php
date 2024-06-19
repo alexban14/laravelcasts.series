@@ -17,6 +17,9 @@
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        <style>
+            [x-cloak] { display: none; }
+        </style>
         @livewireStyles
         @livewireScripts
 
