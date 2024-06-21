@@ -4,14 +4,15 @@
     'required' => false,
     'placeholder' => ""
 ])
-<div class="{{$attributes->whereStartsWith('wire:model')->first()}}">
+<div class="{{$attributes->get('class')}}">
     <label for="{{$attributes->whereStartsWith('wire:model')->first()}}" class="block text-sm font-medium leading-5 text-gray-700">
         {{$label}}
     </label>
     <div class="mt-1 relative rounded-md shadow-sm">
         <input
             wire:model="{{$attributes->whereStartsWith('wire:model')->first()}}"
-            id="email"
+            id="{{$attributes->whereStartsWith('wire:model')->first()}}"
+            type="{{$type}}"
             required="{{$required}}"
             placeholder="{{$placeholder}}"
             @error($attributes->whereStartsWith('wire:model')->first())
