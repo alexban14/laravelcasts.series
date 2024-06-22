@@ -21,7 +21,9 @@
                 </button>
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Product</a>
+                @if(auth()->user())
+                    <a href="/team" class="text-sm font-semibold leading-6 text-gray-900">Team</a>
+                @endif
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>

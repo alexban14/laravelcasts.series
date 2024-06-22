@@ -38,6 +38,9 @@ Route::get('password/reset/{token}', Reset::class)
     ->name('password.reset');
 
 Route::middleware('auth')->group(function () {
+    Route::view('/team', 'team')->name('team.index');
+    Route::view('/team/add-user', 'users.create')->name('users.create');
+
     Route::get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
         ->name('verification.notice');
