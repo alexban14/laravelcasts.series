@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 use Livewire\WithPagination;
 
 class ShowUsers extends Component
@@ -32,8 +33,12 @@ class ShowUsers extends Component
         $this->sortField = $field;
     }
 
-    public function impersonate($userId): RedirectResponse
+    public function impersonate($userId)
     {
+        if(! is_null(session()->has('impersonate'))) {
+            return redirect()->back();
+        }
+
         $originalId = auth()->id();
         session()->put('impersonate', $originalId);
         auth()->loginUsingId($userId);
