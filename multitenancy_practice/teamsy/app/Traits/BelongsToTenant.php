@@ -18,6 +18,6 @@ trait BelongsToTenant
 
     public function tenant(): BelongsTo
     {
-        $this->belongsTo(Tenant::class);
+        return $this->belongsTo(Tenant::class);
     }
 }
