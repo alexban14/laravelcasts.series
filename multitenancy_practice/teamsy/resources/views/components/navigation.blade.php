@@ -22,7 +22,7 @@
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
                 @if(auth()->user())
-                    <a href="/team" class="text-sm font-semibold leading-6 text-gray-900">Team</a>
+                    <a href="/dashboard" class="text-sm font-semibold leading-6 text-gray-900">Dashboard</a>
                 @endif
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>

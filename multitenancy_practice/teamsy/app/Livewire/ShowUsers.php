@@ -2,21 +2,66 @@
 
 namespace App\Livewire;
 
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowUsers extends Component
 {
-    public Collection $users;
+    use WithPagination;
 
-    public function mount(): void
+    public $perPage = 10;
+    public $sortField = 'name';
+    public $sortAsc = true;
+    public $search = '';
+    public $super;
+    public $tenants;
+    public $selectedTenant;
+
+    public function sortBy($field)
     {
-        $this->users = User::all();
+        if ($this->sortField === $field) {
+            $this->sortAsc = ! $this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+
+        $this->sortField = $field;
+    }
+
+    public function impersonate($userId): RedirectResponse
+    {
+        $originalId = auth()->id();
+        session()->put('impersonate', $originalId);
+        auth()->loginUsingId($userId);
+
+        return redirect('/dashboard/team');
+    }
+
+    public function mount()
+    {
+        if(session()->has('tenant_id')) {
+            $this->super = false;
+        } else {
+            $this->super = true;
+            $this->tenants = Tenant::all()->pluck('name', 'id')->toArray();
+        }
     }
 
     public function render()
     {
-        return view('livewire.show-users');
+        $query = User::search($this->search)
+            ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+
+        if($this->super && $this->selectedTenant) {
+            $query->where('tenant_id', $this->selectedTenant);
+        }
+
+        return view('livewire.show-users', [
+            'users' => $query->with('documents')->paginate($this->perPage),
+        ]);
     }
 }

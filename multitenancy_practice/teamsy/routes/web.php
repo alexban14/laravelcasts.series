@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\DocumentController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Passwords\Confirm;
@@ -39,9 +40,11 @@ Route::get('password/reset/{token}', Reset::class)
     ->name('password.reset');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/team', 'team')->name('team.index');
-    Route::view('/team/add-user', 'users.create')->name('users.create');
-
+    Route::prefix('/dashboard')->group(function () {
+        Route::get('/', [Dashboard::class, 'show'])->name('dashboard');
+        Route::view('/team', 'team')->name('team.index');
+        Route::view('/team/add-user', 'users.create')->name('users.create');
+    });
     Route::get('/documents/{user}/{filename}', [DocumentController::class, 'show'])->name('documents.show');
 
     Route::get('email/verify', Verify::class)

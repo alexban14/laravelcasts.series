@@ -59,7 +59,14 @@ class User extends Authenticatable
         if($this->photo) {
             return Storage::disk('s3-public')->url($this->photo);
         }
-        return '';
+        return 'https://avatars.dicebear.com/api/initials/' . $this->name . '.svg';
+    }
+
+    public static function search($query)
+    {
+        return empty($query) ? static::query()
+            : static::where('name', 'like', '%'.$query.'%')
+                ->orWhere('email', 'like', '%'.$query.'%');
     }
 
     public function isAdmin(): bool
